@@ -52,7 +52,8 @@ export const useAuthenticationStore = defineStore({
         async signIn(signInRequest, router) {
             try {
                 const response = await authenticationService.signIn(signInRequest);
-                let signInResponse = new SignInResponse(response.data.id, response.data.username, response.data.token, response.data.roles);
+                const roles = response.data.roles.map(role => role.name);
+                let signInResponse = new SignInResponse(response.data.id, response.data.username, response.data.token, roles);
                 this.signedIn = true;
                 this.userId = signInResponse.id;
                 this.username = signInResponse.username;
@@ -60,7 +61,12 @@ export const useAuthenticationStore = defineStore({
                 localStorage.setItem('token', signInResponse.token);
                 http.defaults.headers.common['Authorization'] = `Bearer ${signInResponse.token}`;
                 console.log(signInResponse);
-                router.push({name: 'psychologist'});
+                //
+                if (signInResponse.roles.includes("PATIENT")) {
+                    router.push({name: 'booking'});
+                } else if (signInResponse.roles.includes("PSYCHOLOGIST")) {
+                    router.push({name: 'psychologist'});
+                }
             } catch (error) {
                 console.log(error);
                 router.push({name: 'sign-in'});
