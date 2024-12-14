@@ -5,20 +5,14 @@ export default {
 
   components: { },
 
-  title: 'Elixir Control',
+  title: 'Psy Schedule',
 
   data() {
     return {
       drawer: true,
       visible: false,
       items: [
-        { label: "title-home-option", to: "/vinicultor/home",               icon: 'pi pi-home' },
-        { label: "title-inventory-option", to: "/vinicultor/inventory",          icon: 'pi pi-receipt' },
-        { label: "title-winemaking-option", to: '/vinicultor/winemaking-process', icon: 'pi pi-spinner-dotted' },
-        { label: "title-my-clients-option", to: '/vinicultor/clients',            icon: 'pi pi-user' },
-        { label: "title-my-orders-option", to: '/vinicultor/orders/history',     icon: 'pi pi-list-check' },
-        { label: "title-my-products-option", to: '/vinicultor/products',           icon: 'pi pi-tags' },
-        { label: "title-support-option", to: '/vinicultor/Support',            icon: 'pi pi-wrench' },
+        { label: "log out", to: "/logout",               icon: 'pi pi-home' },
       ]
     }
   },
@@ -70,7 +64,7 @@ export default {
           <router-link v-for="item in items" :key="item.label" :to="item.to">
             <pv-button @click="visible = false" class="button-option m-1" >
               <i :class="item.icon"></i>
-              title
+              {{ item.label }}
             </pv-button>
           </router-link>
         </div>
